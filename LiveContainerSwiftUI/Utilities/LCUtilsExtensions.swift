@@ -539,6 +539,10 @@ extension LCUtils {
             guard seenSources.insert(source).inserted else {
                 throw BatchMoveError.duplicateSource(source)
             }
+            
+            guard fileManager.isWritableFile(atPath: source.deletingLastPathComponent().path) else {
+                throw BatchMoveError.sourceParentIsNotWritable(source.deletingLastPathComponent())
+            }
 
             guard seenDestinations.insert(destination).inserted else {
                 throw BatchMoveError.duplicateDestination(destination)

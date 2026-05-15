@@ -321,6 +321,7 @@ enum BatchMoveError: LocalizedError {
     case emptySource(URL)
     case sourceDoesNotExist(URL)
     case sourceIsNotReachable(URL, underlying: Error)
+    case sourceParentIsNotWritable(URL)
     case destinationAlreadyExists(URL)
     case destinationParentDoesNotExist(URL)
     case destinationParentIsNotDirectory(URL)
@@ -339,6 +340,8 @@ enum BatchMoveError: LocalizedError {
             return "Source does not exist: \(url.path)"
         case .sourceIsNotReachable(let url, let error):
             return "Source is not reachable: \(url.path). \(error)"
+        case .sourceParentIsNotWritable(let url):
+            return "Source parent is not writable: : \(url.path)"
         case .destinationAlreadyExists(let url):
             return "Destination already exists: \(url.path). Delete or rename this file/folder to continue."
         case .destinationParentDoesNotExist(let url):
